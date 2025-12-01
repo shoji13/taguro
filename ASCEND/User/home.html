@@ -66,6 +66,7 @@
 
   <!-- MAIN CONTENT -->
   <main class="account-section">
+
     <!-- My Account View -->
     <section id="myAccountView">
       <div class="account-header">
@@ -73,24 +74,15 @@
         <a href="#" class="manage-accounts">⚙ Manage Accounts</a>
       </div>
 
-      <!-- Added id="accountCard" -->
-      <div class="account-card" id="accountCard">
-        <div class="account-info">
-          <div class="account-icon">🏦</div>
-          <div class="account-details">
-            <p class="account-type">Savings w/ ATM</p>
-            <p class="account-number">1234 **** ****</p>
-            <p>Available Balance <span class="balance">PHP 5,000.00</span></p>
-            <p>Current Balance <span class="balance">PHP 5,000.00</span></p>
-          </div>
-        </div>
-      </div>
+      <!-- MULTIPLE ACCOUNTS HERE -->
+      <div id="accountsContainer"></div>
     </section>
 
     <!-- Transaction History View -->
     <section id="transactionHistoryView" style="display:none;">
       <div class="account-header">
         <button class="my-account-btn">Transaction History</button>
+        <button id="backToAccounts" style="padding:5px 12px; border:none; border-radius:5px; background:#0072CE; color:white; cursor:pointer;">⬅ Back</button>
       </div>
 
       <div class="transaction-controls">
@@ -100,42 +92,12 @@
         <button class="filter-btn">⚙ Filter</button>
       </div>
 
-      <div class="transaction-list">
-        <div class="transaction-item">
-          <div class="trans-left">
-            <span class="calendar">📅</span>
-            <div>
-              <p class="date">August 24, 2025</p>
-              <p class="desc">💰 Sent ₱2,000 to Savings ****5678<br>Ref: TX12345 — 10:15 AM</p>
-            </div>
-          </div>
-          <div class="trans-right">-2,000.00</div>
-        </div>
-
-        <div class="transaction-item">
-          <div class="trans-left">
-            <span class="calendar">📅</span>
-            <div>
-              <p class="date">August 24, 2025</p>
-              <p class="desc">💰 Sent ₱2,000 to Savings ****5678<br>Ref: TX12345 — 10:15 AM</p>
-            </div>
-          </div>
-          <div class="trans-right">-2,000.00</div>
-        </div>
-
-        <div class="transaction-item">
-          <div class="trans-left">
-            <span class="calendar">📅</span>
-            <div>
-              <p class="date">August 24, 2025</p>
-              <p class="desc">💰 Sent ₱2,000 to Savings ****5678<br>Ref: TX12345 — 10:15 AM</p>
-            </div>
-          </div>
-          <div class="trans-right">-2,000.00</div>
-        </div>
-      </div>
+      <div class="transaction-list"></div>
     </section>
+
+
   </main>
+
 
   <script src="assets/js/script.js"></script>
 </body>
