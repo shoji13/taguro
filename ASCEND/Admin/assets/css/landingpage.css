@@ -1,0 +1,203 @@
+ * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to bottom, #f0c94b, #ffcc70);
+      color: #222;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 40px;
+      background: linear-gradient(to bottom, #f0c94b, #ffcc70);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo img {
+      height: 90px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .btn-register {
+      padding: 8px 15px;
+      background: #ffffff;
+      color: #000000;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: linear-gradient(to right, #f0c94b, #ffcc70);
+      color: white;
+      min-height: 20vh;
+    }
+
+    .hero-content {
+      flex: 1;
+      max-width: 500px;
+    }
+
+    .hero-content h1 {
+      margin-top: -70px;
+      font-size: 5em;
+      color: #b22222;
+    }
+
+    .hero-content h1 span {
+      color: #b22222;
+    
+    }
+
+    .hero-content p {
+      font-family: "Pacifico", cursive;
+      font-weight: 300;
+      margin-bottom: 20px;
+      margin-left: 70px;
+      color: #b22222;
+    }
+
+    .btn-signin {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #fff;
+      color: #ff6a00;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .hero-image {
+  flex: 2;
+  position: relative;   /* allow absolute positioning for children */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image img {
+  width: 450px;
+  max-width: 100%;
+}
+
+.stat-card {
+  position: absolute;
+  width: 200px;
+  padding: 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+  background: white;
+}
+
+/* Place income card on the left */
+.income {
+  top: 30%;
+  left: 50px;
+  background: linear-gradient(to right, #e6ffcc, #99e6ff);
+}
+
+/* Place outcome card on the right */
+.outcome {
+  bottom: 20%;
+  right: 60px;
+  background: linear-gradient(to right, #ffcccc, #ffeb99);
+}
+
+    .stat-card h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .stat-card p {
+      font-size: 20px;
+      margin: 10px 0 0;
+    }
+
+    /* Spinner overlay */
+    .spinner-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #ff6a00;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* About Section */
+    .about, .contact {
+      text-align: center;
+      padding: 60px 20px;
+      background: #fff;
+    }
+
+    .about h2, .contact h2 {
+      margin-bottom: 20px;
+      color: #ff6a00;
+    }
+
+    .about p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: #fff;
+    }

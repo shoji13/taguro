@@ -1,0 +1,355 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffda73;
+  padding: 10px 30px;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo img {
+  width: 45px;
+  height: auto;
+}
+
+/* NAV LINKS */
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  padding: 6px 8px;
+}
+
+.nav-links li.active a {
+  font-weight: 700;
+  border-bottom: 3px solid #000;
+}
+
+/* Keep underline visible even if dropdown hidden */
+.nav-links li.sendmoney a {
+  font-weight: 700;
+  border-bottom: 3px solid #000 !important;
+}
+
+
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  min-width: 300px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+}
+
+/* Initially hidden */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  min-width: 300px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 10;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all 0.2s ease-in-out;
+}
+
+.hidden {
+  display: none;
+}
+
+.transfer-header {
+  background-color: #ffcc00;
+  padding: 10px 20px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.transfer-card {
+  background: #fff;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  max-width: 850px;
+  margin: 20px auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.input-box input,
+.input-box select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.balance {
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 5px;
+}
+
+.proceed-btn {
+  background: #3d91ff;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  float: right;
+}
+
+.proceed-btn:hover {
+  background: #2578e0;
+}
+
+
+/* When dropdown is active (clicked) */
+.dropdown.active .dropdown-content {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* DROPDOWN ITEMS */
+.dropdown-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #fff7d1;
+}
+
+.dropdown-item .icon {
+  font-size: 1.5rem;
+  margin-top: 5px;
+}
+
+.dropdown-item .title {
+  font-weight: 600;
+  color: #000;
+}
+
+.dropdown-item .desc {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.dropdown-content a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* NAV ICONS AND PROFILE */
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile img {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+#logoutBtn {
+  background: none;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  color: #333;
+}
+
+/* === MAIN TRANSFER SECTION === */
+.transfer-section {
+  padding: 40px 80px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #fff;
+}
+
+/* Card container */
+.transfer-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 40px 50px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 1000px; /* expand form */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Section header */
+.transfer-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+/* Labels + input fields */
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+.input-box {
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  padding: 12px 15px;
+  transition: all 0.2s ease-in-out;
+}
+
+.input-box:hover,
+.input-box:focus-within {
+  border-color: #ffda73;
+  box-shadow: 0 0 0 3px rgba(255, 218, 115, 0.3);
+}
+
+.input-box input {
+  border: none;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+}
+
+/* Balance text */
+.balance {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 6px;
+}
+
+/* Proceed button */
+.proceed-btn {
+  background-color: #4da6ff;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  float: right;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.proceed-btn:hover {
+  background-color: #1a8cff;
+}
+
+/* “Send to my Account” Button */
+.transfer-btn {
+  background-color: #f9d65c;
+  border: none;
+  padding: 12px 25px;
+  font-weight: 700;
+  border-radius: 8px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+  cursor: pointer;
+  margin-bottom: 50px;
+  transition: all 0.2s ease-in-out;
+  top: 10px;
+}
+
+.transfer-btn:hover {
+  background-color: #ffd633;
+  transform: translateY(-2px);
+}
+
+.account-row {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.from-account,
+.to-account {
+  flex: 1;
+  min-width: 300px;
+}

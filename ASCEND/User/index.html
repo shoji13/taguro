@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account | AD Bank</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="assets/images/logoAB.png" alt="Ascend Bank Logo" />
+    </div>
+
+    <nav>
+      <ul class="nav-links">
+        <!-- Added id="accountsNav" -->
+        <li class="active"><a href="#" id="accountsNav">Accounts</a></li>
+        <li class="dropdown">
+          <a href="sendmoney.html" class="dropbtn">Send Money ▾</a>
+          <div class="dropdown-content">
+                              
+            <a href="sendmoney.html">
+              <div class="dropdown-item">
+                <span class="icon">💳</span>
+                <div>
+                  <p class="title">Own Account</p>
+                  <p class="desc">Send money to your own accounts</p>
+                </div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="dropdown-item">
+                <span class="icon">🏦</span>
+                <div>
+                  <p class="title">Any ASCEND Account</p>
+                  <p class="desc">Send money to other ASCEND accounts</p>
+                </div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="dropdown-item">
+                <span class="icon">🏧</span>
+                <div>
+                  <p class="title">Other Banks and Wallet</p>
+                  <p class="desc">Send money to other banks or wallet</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </li>
+        <li><a href="pay.html">Pay</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-icons">
+      <i class="icon">✉️</i>
+      <i class="icon">🔔</i>
+      <div class="profile">
+        <img src="https://via.placeholder.com/30" />
+        <span>Benson, Susie Sam</span>
+      </div>
+      <button id="logoutBtn">Log out</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="account-section">
+    <!-- My Account View -->
+    <section id="myAccountView">
+      <div class="account-header">
+        <button class="my-account-btn">My Account</button>
+        <a href="#" class="manage-accounts">⚙ Manage Accounts</a>
+      </div>
+
+      <!-- Added id="accountCard" -->
+      <div class="account-card" id="accountCard">
+        <div class="account-info">
+          <div class="account-icon">🏦</div>
+          <div class="account-details">
+            <p class="account-type">Savings w/ ATM</p>
+            <p class="account-number">1234 **** ****</p>
+            <p>Available Balance <span class="balance">PHP 5,000.00</span></p>
+            <p>Current Balance <span class="balance">PHP 5,000.00</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Transaction History View -->
+    <section id="transactionHistoryView" style="display:none;">
+      <div class="account-header">
+        <button class="my-account-btn">Transaction History</button>
+      </div>
+
+      <div class="transaction-controls">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="🔍 Search" />
+        </div>
+        <button class="filter-btn">⚙ Filter</button>
+      </div>
+
+      <div class="transaction-list">
+        <div class="transaction-item">
+          <div class="trans-left">
+            <span class="calendar">📅</span>
+            <div>
+              <p class="date">August 24, 2025</p>
+              <p class="desc">💰 Sent ₱2,000 to Savings ****5678<br>Ref: TX12345 — 10:15 AM</p>
+            </div>
+          </div>
+          <div class="trans-right">-2,000.00</div>
+        </div>
+
+        <div class="transaction-item">
+          <div class="trans-left">
+            <span class="calendar">📅</span>
+            <div>
+              <p class="date">August 24, 2025</p>
+              <p class="desc">💰 Sent ₱2,000 to Savings ****5678<br>Ref: TX12345 — 10:15 AM</p>
+            </div>
+          </div>
+          <div class="trans-right">-2,000.00</div>
+        </div>
+
+        <div class="transaction-item">
+          <div class="trans-left">
+            <span class="calendar">📅</span>
+            <div>
+              <p class="date">August 24, 2025</p>
+              <p class="desc">💰 Sent ₱2,000 to Savings ****5678<br>Ref: TX12345 — 10:15 AM</p>
+            </div>
+          </div>
+          <div class="trans-right">-2,000.00</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

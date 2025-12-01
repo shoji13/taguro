@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pay Bills | AD Bank</title>
+<link rel="stylesheet" href="assets/css/pay.css" />
+</head>
+<body>
+<!-- ================= NAVIGATION BAR ================= -->
+<header class="navbar">
+    <div class="logo">
+        <img src="assets/images/logoAB.png" alt="Ascend Bank Logo" />
+    </div>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Accounts</a></li>
+
+            <li class="dropdown">
+                <a href="sendmoney.html" class="dropbtn" id="sendMoneyBtn">Send Money ▾</a>
+                <div class="dropdown-content">
+            <a href="sendmoney.html#ownAccount">
+              <div class="dropdown-item">
+                <span class="icon">💳</span>
+                <div>
+                  <p class="title">Own Account</p>
+                  <p class="desc">Send money to your own accounts</p>
+                </div>
+              </div>
+            </a>
+            <a href="sendmoney.html#ascend">
+              <div class="dropdown-item">
+                <span class="icon">🏦</span>
+                <div>
+                  <p class="title">Any ASCEND Account</p>
+                  <p class="desc">Send money to other ASCEND accounts</p>
+                </div>
+              </div>
+            </a>
+            <a href="sendmoney.html#otherBanks">
+              <div class="dropdown-item">
+                <span class="icon">🏧</span>
+                <div>
+                  <p class="title">Other Banks and Wallet</p>
+                  <p class="desc">Send money to other banks or wallets</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </li>
+
+        <li class="active"><a href="pay.html">Pay</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-icons">
+      <i class="icon">✉️</i>
+      <i class="icon">🔔</i>
+      <div class="profile">
+        <img src="https://via.placeholder.com/30" />
+        <span>Benson, Susie Sam</span>
+      </div>
+      <button id="logoutBtn">Log out</button>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="transfer-section">
+    <section class="transfer-card">
+      <h2 class="transfer-header">Pay Bills</h2>
+
+      <form id="payBillsForm">
+        <div class="form-group">
+          <label>Select (Biller):</label>
+          <div class="input-box">
+            <select id="billerSelect" required>
+              <option value="" disabled selected>Select a biller</option>
+              <option value="meralco">Meralco</option>
+              <option value="pldt">PLDT</option>
+              <option value="maynilad">Maynilad</option>
+              <option value="globe">Globe Telecom</option>
+              <option value="smart">Smart Communications</option>
+              <option value="manilawater">Manila Water</option>
+              <option value="cignal">Cignal TV</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Account / Subscriber No:</label>
+          <div class="input-box">
+            <input type="text" id="accountNo" placeholder="Enter Account or Subscriber Number" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Registered Name:</label>
+          <div class="input-box">
+            <input type="text" id="registeredName" placeholder="Enter Registered Name" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Amount:</label>
+          <div class="input-box">
+            <input type="number" id="billAmount" placeholder="PHP 0.00" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Payment Source:</label>
+          <div class="input-box">
+            <input type="text" value="Savings 1234 **** ****" readonly />
+            <p class="balance">Balance: PHP 20,000.00</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Remarks (Optional):</label>
+          <div class="input-box">
+            <input type="text" id="remarks" placeholder="Add Note" />
+          </div>
+        </div>
+
+        <button type="submit" class="proceed-btn">Proceed</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="assets/js/pay.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account - Ascend Bank</title>
+  <link rel="stylesheet" href="assets/css/register.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="signup-container">
+    
+    <!-- Left Section (Form) -->
+    <div class="signup-left">
+      <h2 class="bank-title">ASCEND BANK</h2>
+      <h3 class="form-title">Welcome to Ascend Bank!</h3>
+
+      <form action="assets/php/register.php" method="POST">
+        
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+        <label for="password">Password</label>
+        <div class="password-box">
+          <input type="password" id="password" name="password" placeholder="Enter your password" required>
+          <span class="toggle-password" onclick="togglePassword('password')"></span>
+        </div>
+
+        <label for="confirm-password">Confirm Password</label>
+        <div class="password-box">
+          <input type="password" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required>
+          <span class="toggle-password" onclick="togglePassword('confirm-password')"></span>
+        </div>
+
+      
+         <button type="submit" class="btn-signup" onclick="window.location.href='dashboard.html'">
+ Sign Up
+</button>
+
+      </form>
+
+      <p class="register-text">
+        Already have an account? <a href="login.html">Log In</a>
+      </p>
+    </div>
+
+    <!-- Right Section (Image) -->
+    <div class="signup-right">
+      <img src="assets/images/bgpic.png" alt="Bank Illustration">
+    </div>
+
+  </div>
+
+  <script>
+    // Toggle password visibility
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>

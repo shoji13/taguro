@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Send Money | AD Bank</title>
+  <link rel="stylesheet" href="assets/css/sendmoney.css" />
+</head>
+<body>
+  <!-- ================= NAVIGATION BAR ================= -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="assets/images/logoAB.png" alt="Ascend Bank Logo" />
+    </div>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Accounts</a></li>
+
+        <!-- Dropdown -->
+        <li class="dropdown active">
+          <a href="#sendmoney.html" class="dropbtn">Send Money ▾</a>
+          <div class="dropdown-content">
+            <a href="#sendmoney.html" onclick="showSection('own')">
+              <div class="dropdown-item">
+                <span class="icon">💳</span>
+                <div>
+                  <p class="title">Own Account</p>
+                  <p class="desc">Send money to your own accounts</p>
+                </div>
+              </div>
+            </a>
+            <a href="#sendmoney.html" onclick="showSection('ascend')">
+              <div class="dropdown-item">
+                <span class="icon">🏦</span>
+                <div>
+                  <p class="title">Any ASCEND Account</p>
+                  <p class="desc">Send money to other ASCEND accounts</p>
+                </div>
+              </div>
+            </a>
+            <!-- ✅ FIXED: Added onclick for otherBanks -->
+            <a href="#sendmoney.html" onclick="showSection('otherBanks')">
+              <div class="dropdown-item">
+                <span class="icon">🏧</span>
+                <div>
+                  <p class="title">Other Banks and Wallet</p>
+                  <p class="desc">Send money to other banks or wallets</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </li>
+        <li><a href="pay.html">Pay</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-icons">
+      <i class="icon">✉️</i>
+      <i class="icon">🔔</i>
+      <div class="profile">
+        <img src="https://via.placeholder.com/30" />
+        <span>Benson, Susie Sam</span>
+      </div>
+      <button id="logoutBtn">Log out</button>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="transfer-section">
+    <!-- === OWN ACCOUNT SECTION === -->
+    <section id="ownAccountSection" class="transfer-card">
+      <h2 class="transfer-header">Send to My Account</h2>
+
+      <form id="ownAccountForm">
+        <div class="form-group">
+          <label>From Account:</label>
+          <div class="input-box">
+            <input type="text" value="Savings 1234 **** ****" readonly />
+            <p class="balance">Balance: PHP 25,000.00</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>To Account:</label>
+          <div class="input-box">
+            <input type="text" value="Checking 5678 **** ****" readonly />
+            <p class="balance">Balance: PHP 5,000.00</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Amount:</label>
+          <div class="input-box">
+            <input type="text" id="ownAmount" placeholder="PHP 0.00" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Remarks (Optional):</label>
+          <div class="input-box">
+            <input type="text" placeholder="Add Note" />
+          </div>
+        </div>
+
+        <button type="submit" class="proceed-btn">Proceed</button>
+      </form>
+    </section>
+
+    <!-- === ANY ASCEND ACCOUNT SECTION === -->
+    <section id="ascendAccountSection" class="transfer-card hidden">
+      <h2 class="transfer-header">Send to Any ASCEND Account</h2>
+
+      <form id="ascendForm">
+        <div class="form-group">
+          <label>From Account:</label>
+          <div class="input-box">
+            <input type="text" value="Savings 1234 **** ****" readonly />
+            <p class="balance">Balance: PHP 25,000.00</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Recipient Account Number:</label>
+          <div class="input-box">
+            <input type="text" placeholder="Enter ASCEND Account Number" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Recipient Name:</label>
+          <div class="input-box">
+            <input type="text" placeholder="Enter Recipient Name" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Amount:</label>
+          <div class="input-box">
+            <input type="text" id="ascendAmount" placeholder="PHP 0.00" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Remarks (Optional):</label>
+          <div class="input-box">
+            <input type="text" placeholder="Add Note" />
+          </div>
+        </div>
+
+        <button type="submit" class="proceed-btn">Proceed</button>
+      </form>
+    </section>
+
+    <!-- === OTHER BANKS AND WALLET SECTION === -->
+    <section id="otherBanksSection" class="transfer-card hidden">
+      <h2 class="transfer-header">Send to Other Banks and Wallets</h2>
+
+      <form id="otherBanksForm">
+        <div class="form-group">
+          <label>From Account:</label>
+          <div class="input-box">
+            <input type="text" value="Savings 1234 **** ****" readonly />
+            <p class="balance">Balance: PHP 25,000.00</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+      <label>Recipient Bank:</label>
+      <div class="input-box">
+        <select id="recipientBank" required>
+          <option value="" disabled selected>Select Bank or Wallet</option>
+          <option value="BPI">BPI </option>
+          <option value="BDO">BDO </option>
+          <option value="Metrobank">Metrobank</option>
+          <option value="Landbank">Land Bank of the Philippines</option>
+          <option value="UnionBank">UnionBank</option>
+          <option value="PNB">Philippine National Bank</option>
+          <option value="SecurityBank">Security Bank</option>
+          <option value="Chinabank">China Bank</option>
+          <option value="EastWest">EastWest Bank</option>
+          <option value="RCBC">RCBC</option>
+          <option value="GCash">GCash</option>
+          <option value="Maya">Maya (formerly PayMaya)</option>
+          <option value="GrabPay">GrabPay</option>
+        </select>
+      </div>
+    </div>
+
+        <div class="form-group">
+          <label>Recipient Account:</label>
+          <div class="input-box">
+            <input type="text" placeholder="Enter Account or Wallet Number" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Recipient Name:</label>
+          <div class="input-box">
+            <input type="text" placeholder="Enter Recipient Name" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Amount:</label>
+          <div class="input-box">
+            <input type="text" id="otherAmount" placeholder="PHP 0.00" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Remarks (Optional):</label>
+          <div class="input-box">
+            <input type="text" placeholder="Add Note" />
+          </div>
+        </div>
+
+        <button type="submit" class="proceed-btn">Proceed</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="assets/js/sendmoney.js"></script>
+</body>
+</html>
