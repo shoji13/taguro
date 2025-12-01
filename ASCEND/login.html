@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ascend Bank - Login</title>
-  <link rel="stylesheet" href="assets/css/login.css">
+  <link rel="stylesheet" href="login.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="login-container">
     <!-- Left Side -->
     <div class="login-left">
-      <img src="assets/images/bgpic.png" alt="Finance Graphic">
+      <img src="images/bgpic.png" alt="Finance Graphic">
     </div>
 
     <!-- Right Side -->
@@ -19,7 +19,7 @@
       <h1>ASCEND BANK</h1>
       <h2>Welcome to Ascend Bank!</h2>
 
-      <form action="assets/php/login.php" method="POST">
+      <form action="login.php" method="POST">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" required>
 
@@ -29,17 +29,17 @@
           <span class="toggle-password" onclick="togglePassword()"></span>
         </div>
 
-        <button type="button" class="btn-login" onclick="window.location.href='dashboard.html'">
-  Login
-</button>
-
-
+        <!-- CHANGE HERE -->
+        <button type="submit" class="btn-login">
+          Login
+        </button>
 
         <!-- Spinner -->
         <div id="spinner" class="spinner-overlay" style="display: none;">
           <div class="spinner"></div>
         </div>
       </form>
+
 
       <div class="extra-links">
         <p>Don’t have an account yet? <a href="register.html">Sign Up</a></p>
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <script src="assets/js/login.js"></script>
+  <script src="login.js"></script>
   <script>
     // Toggle password visibility
     function togglePassword() {
