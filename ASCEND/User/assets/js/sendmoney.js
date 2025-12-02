@@ -147,3 +147,78 @@ function populateOwnAccounts() {
 
 // Initialize after loading accounts
 loadAccounts().then(() => populateOwnAccounts());
+
+// HANDLE ASCEND ACCOUNT TRANSFER
+document.getElementById("ascendForm").addEventListener("submit", async e => {
+    e.preventDefault();
+
+    const fromCardID = document.getElementById("ascendFromAccount").value;
+    const recipientCardNumber = document.querySelector("#ascendForm input[placeholder='Enter ASCEND Account Number']").value;
+    const recipientName = document.querySelector("#ascendForm input[placeholder='Enter Recipient Name']").value;
+    const amount = parseFloat(document.getElementById("ascendAmount").value.replace(/[^0-9.]/g, ""));
+    const remarks = document.querySelector("#ascendForm input[placeholder='Add Note']").value;
+
+    if (!fromCardID || !recipientCardNumber || !recipientName || !amount || amount <= 0) {
+        alert("Please fill all fields correctly.");
+        return;
+    }
+
+    const response = await fetch("send_to_ascend.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            fromCardID,
+            recipientCardNumber,
+            recipientName,
+            amount,
+            remarks
+        })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+        alert("Money successfully sent!");
+        location.reload();
+    } else {
+        alert("Error: " + result.message);
+    }
+});
+
+// Send to Other Banks & Wallets
+document.getElementById('otherBanksForm').addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const fromCardID = document.getElementById('otherFromAccount').value;
+    const recipientBank = document.getElementById('recipientBank').value;
+    const recipientAccount = document.querySelector('#otherBanksForm input[placeholder="Enter Account or Wallet Number"]').value.trim();
+    const recipientName = document.querySelector('#otherBanksForm input[placeholder="Enter Recipient Name"]').value.trim();
+    const amount = parseFloat(document.getElementById('otherAmount').value);
+    const remarks = document.querySelector('#otherBanksForm input[placeholder="Add Note"]').value.trim();
+
+    if (!fromCardID || !recipientBank || !recipientAccount || !recipientName || !amount || amount <= 0) {
+        alert('Please fill all fields correctly.');
+        return;
+    }
+
+    try {
+        const res = await fetch('send_to_other.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fromCardID, recipientBank, recipientAccount, recipientName, amount, remarks })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+            alert('Transaction successful!');
+            document.getElementById('otherBanksForm').reset();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    } catch (err) {
+        console.error(err);
+        alert('An error occurred. Check console.');
+    }
+});
+
+

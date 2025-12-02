@@ -6,6 +6,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const accountsNav = document.getElementById('accountsNav');
   let allTransactions = [];
 
+  function formatFullDate(dateStr) {
+      return new Date(dateStr).toLocaleDateString('en-US', {
+          month: 'long',
+          day: '2-digit',
+          year: 'numeric'
+      });
+  }
+
   // Load account and transactions
   function loadAccountData() {
     fetch('get_account.php')
@@ -45,44 +53,55 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Show transactions for selected card
-  function showTransactions(cardNumber) {
-    myAccountView.style.display = 'none';
-    transactionView.style.display = 'block';
+  function showTransactions(cardID) {
+    myAccountView.style.display = "none";
+    transactionView.style.display = "block";
 
-    const txList = document.querySelector('.transaction-list');
-    txList.innerHTML = '';
+    const txList = document.querySelector(".transaction-list");
+    txList.innerHTML = "";
 
-    // Filter transactions related to this card
-    const filteredTx = allTransactions.filter(tx => 
-        tx.BankName === cardNumber // or use CardID if available
+    // Filter by CardIDSender OR receiver
+    const filteredTx = allTransactions.filter(
+      tx => tx.CardIDSender == cardID || tx.AccountIDReciever == cardID
     );
 
     if (filteredTx.length === 0) {
-        // Show no transactions message
-        txList.innerHTML = `<p style="text-align:center; padding:20px; color:#555;">No transactions yet</p>`;
-        return;
+      txList.innerHTML = `
+        <p style="text-align:center; padding:20px; color:#555; font-size:18px;">
+          No transactions yet
+        </p>`;
+      return;
     }
 
     filteredTx.forEach(tx => {
-        const amount = parseFloat(tx.TransactionAmount).toLocaleString('en-PH',{minimumFractionDigits:2});
-        const isSent = tx.AccountIDSender == tx.AccountIDSender;
-        const sign = isSent ? '-' : '+';
+      const amount = parseFloat(tx.TransactionAmount).toLocaleString(
+        "en-PH",
+        { minimumFractionDigits: 2 }
+      );
 
-        const txHTML = document.createElement('div');
-        txHTML.classList.add('transaction-item');
-        txHTML.innerHTML = `
-            <div class="trans-left">
-                <span class="calendar">📅</span>
-                <div>
-                    <p class="date">${new Date(tx.TransactionDate).toLocaleDateString()}</p>
-                    <p class="desc">${tx.TransactionActivity}<br>Ref: TX${tx.TransactionID} — ${new Date(tx.TransactionDate).toLocaleTimeString()}</p>
-                </div>
-            </div>
-            <div class="trans-right">${sign}${amount}</div>
-        `;
-        txList.appendChild(txHTML);
+      const isSent = tx.CardIDSender == cardID;
+      const sign = isSent ? "-" : "+";
+
+      const txHTML = document.createElement("div");
+      txHTML.classList.add("transaction-item");
+      txHTML.innerHTML = `
+        <div class="trans-left">
+          <span class="calendar">📅</span>
+          <div>
+            <p class="date">${formatFullDate(tx.TransactionDate)}</p>
+            <p class="desc">
+              ${tx.TransactionActivity}<br>
+              Ref: TX${tx.TransactionID} — 
+              ${new Date(tx.TransactionDate).toLocaleTimeString()}
+            </p>
+          </div>
+        </div>
+        <div class="trans-right">${sign}${amount}</div>
+      `;
+      txList.appendChild(txHTML);
     });
-}
+  }
+
 
 
   // Navbar → back to accounts
