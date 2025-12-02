@@ -17,7 +17,7 @@ try {
         FROM accounts
         WHERE AccountID = :id
     ");
-    $stmt->bindParam(':id',$user_id);
+    $stmt->bindParam(':id', $user_id);
     $stmt->execute();
     $account = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -27,33 +27,31 @@ try {
         FROM card
         WHERE AccountID = :id
     ");
-    $stmt_cards->bindParam(':id',$user_id);
+    $stmt_cards->bindParam(':id', $user_id);
     $stmt_cards->execute();
     $cards = $stmt_cards->fetchAll(PDO::FETCH_ASSOC);
 
-    // Convert card list to array of IDs
-    $cardIDs = array_column($cards, 'CardID');
+    // Fetch all transactions related to the user's cards
+    $transactions = [];
+    if (count($cards) > 0) {
+        $cardIDs = array_column($cards, 'CardID');
+        $cardNumbers = array_column($cards, 'CardNumber');
 
-    if (count($cardIDs) > 0) {
-        // Prepare placeholders (?, ?, ?)
-        $placeholders = implode(',', array_fill(0, count($cardIDs), '?'));
+        $placeholdersID = implode(',', array_fill(0, count($cardIDs), '?'));
+        $placeholdersNum = implode(',', array_fill(0, count($cardNumbers), '?'));
 
-        // Fetch ALL related transactions
         $stmt_tx = $conn->prepare("
             SELECT TransactionID, TransactionActivity, TransactionAmount, 
-                   CardIDSender, AccountIDReciever, BankName, TransactionRemarks, TransactionDate
+                   CardIDSender, AccountIDReciever, BankName, TransactionRemarks, TransactionDate, RecieverName
             FROM transaction
-            WHERE CardIDSender IN ($placeholders)
-               OR AccountIDReciever = ?
+            WHERE CardIDSender IN ($placeholdersID)
+               OR AccountIDReciever IN ($placeholdersNum)
             ORDER BY TransactionDate DESC
         ");
-        
-        // Merge cardIDs and user_id (for AccountIDReciever)
-        $params = array_merge($cardIDs, [$user_id]);
+
+        $params = array_merge($cardIDs, $cardNumbers);
         $stmt_tx->execute($params);
         $transactions = $stmt_tx->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        $transactions = [];
     }
 
     echo json_encode([
@@ -66,3 +64,4 @@ try {
 } catch(PDOException $e) {
     echo json_encode(['success'=>false,'message'=>$e->getMessage()]);
 }
+?>
