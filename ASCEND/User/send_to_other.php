@@ -47,7 +47,7 @@ try {
         INSERT INTO transaction
             (TransactionActivity, TransactionAmount, CardIDSender, AccountIDReciever, BankName, TransactionRemarks, TransactionDate, RecieverName)
         VALUES
-            ('Send to Other Bank/Wallet', :amt, :sender, :receiverAccount, :bankName, :remarks, NOW(), :receiverName)
+            ('Transfer', :amt, :sender, :receiverAccount, :bankName, :remarks, NOW(), :receiverName)
     ");
 
     $stmt->execute([

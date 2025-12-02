@@ -49,44 +49,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Show transactions for a card
   function showTransactions(cardID, cardNumber) {
-    myAccountView.style.display = 'none';
-    transactionView.style.display = 'block';
+      myAccountView.style.display = 'none';
+      transactionView.style.display = 'block';
 
-    const txList = document.querySelector('.transaction-list');
-    txList.innerHTML = '';
+      const txList = document.querySelector('.transaction-list');
+      txList.innerHTML = '';
 
-    const filteredTx = allTransactions.filter(tx =>
-      String(tx.CardIDSender) === String(cardID) || String(tx.AccountIDReciever) === String(cardNumber)
-    );
+      const filteredTx = allTransactions.filter(tx =>
+        String(tx.CardIDSender) === String(cardID) || String(tx.AccountIDReciever) === String(cardNumber)
+      );
 
-    if (filteredTx.length === 0) {
-      txList.innerHTML = `<p style="text-align:center; padding:20px; color:#555; font-size:18px;">No transactions yet</p>`;
-      return;
-    }
+      if (filteredTx.length === 0) {
+        txList.innerHTML = `<p style="text-align:center; padding:20px; color:#555; font-size:18px;">No transactions yet</p>`;
+        return;
+      }
 
-    filteredTx.forEach(tx => {
-      const amount = parseFloat(tx.TransactionAmount).toLocaleString('en-PH',{minimumFractionDigits:2});
-      const isSent = String(tx.CardIDSender) === String(cardID);
-      const sign = isSent ? '-' : '+';
+      filteredTx.forEach(tx => {
+        const amount = parseFloat(tx.TransactionAmount).toLocaleString('en-PH',{minimumFractionDigits:2});
+        const isSent = String(tx.CardIDSender) === String(cardID);
 
-      const txHTML = document.createElement('div');
-      txHTML.classList.add('transaction-item');
-      txHTML.innerHTML = `
-        <div class="trans-left">
-          <span class="calendar">📅</span>
-          <div>
-            <p class="date">${formatFullDate(tx.TransactionDate)}</p>
-            <p class="desc">
-              ${tx.TransactionActivity}<br>
-              Ref: TX${tx.TransactionID} — ${new Date(tx.TransactionDate).toLocaleTimeString()}
-            </p>
+        // Determine activity label
+        const activityLabel = isSent ? 'Transferred' : 'Received';
+        const sign = isSent ? '-' : '+';
+
+        const txHTML = document.createElement('div');
+        txHTML.classList.add("transaction-item");
+        txHTML.innerHTML = `
+          <div class="trans-left">
+            <span class="calendar">📅</span>
+            <div>
+              <p class="date">${formatFullDate(tx.TransactionDate)}</p>
+              <p class="desc">
+                ${activityLabel}<br>
+                Ref: TX${tx.TransactionID} — ${new Date(tx.TransactionDate).toLocaleTimeString()}
+              </p>
+            </div>
           </div>
-        </div>
-        <div class="trans-right">${sign}${amount}</div>
-      `;
-      txList.appendChild(txHTML);
-    });
+          <div class="trans-right">${sign}${amount}</div>
+        `;
+        txList.appendChild(txHTML);
+      });
   }
+
 
   function formatFullDate(dateStr) {
     const options = { year: 'numeric', month: 'long', day: '2-digit' };

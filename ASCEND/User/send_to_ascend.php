@@ -72,7 +72,7 @@ try {
     $stmt = $conn->prepare("
         INSERT INTO transaction 
         (TransactionActivity, TransactionAmount, CardIDSender, AccountIDReciever, BankName, TransactionRemarks, TransactionDate, RecieverName)
-        VALUES ('Send to ASCEND', :amt, :sender, :receiverCardNum, 'ASCEND', :remarks, NOW(), :recName)
+        VALUES ('Transfer', :amt, :sender, :receiverCardNum, 'ASCEND', :remarks, NOW(), :recName)
     ");
     $stmt->bindParam(':amt', $amount);
     $stmt->bindParam(':sender', $from);
