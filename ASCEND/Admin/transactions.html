@@ -37,11 +37,11 @@
           <input type="text" placeholder="Search…" />
         </div>
         <div class="toolbar">
-          <div class="pill" title="Notifications">🔔</div>
-          <div class="pill" title="Messages">💬</div>
+         
+          
           <div class="pill" title="Profile">
-            <span class="avatar">JD</span>
-            <span>John Doe</span>
+            <span class="avatar" id="userAvatar">JD</span>
+            <span id="userName">John Doe</span>
           </div>
         </div>
       </div>
@@ -50,11 +50,12 @@
                 <div class="transactions-header">
                     <h2>Recent Transactions</h2>
                     <div class="transactions-filter">
-                        <select>
-                            <option>All</option>
-                            <option>Debit</option>
-                            <option>Credit</option>
-                        </select>
+                   
+                    <input type="date" id="startDate" />
+                    <span>—</span>
+                    <input type="date" id="endDate" />
+                    <button id="applyFilter" type="button" class="btn" style="margin-left:8px;appearance:none;background-image:none;">Filter</button>
+                    <button id="resetFilter" type="button" class="btn" title="Clear filters" style="margin-left:8px;appearance:none;background-image:none;">Reset</button>
                     </div>
                 </div>
                 <table class="transactions-table">
@@ -62,32 +63,19 @@
                         <tr>
                             <th>Account No.</th>
                             <th>Date</th>
-                            <th>Description</th>
-                            <th>Type</th>
+                            <th>Activity</th>
                             <th>Amount</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>123456789</td>
-                            <td>2025-08-20</td>
-                            <td>Electricity Bill</td>
-                            <td>Debit</td>
-                            <td class="amount debit">₱1,500.00</td>
-                        </tr>
-                        <tr>
-                            <td>987654321</td>
-                            <td>2025-08-19</td>
-                            <td>Utility Bill</td>
-                            <td>Credit</td>
-                            <td class="amount credit">₱26,000.00</td>
-                        </tr>
+                        <!-- Transaction rows will be inserted here by JS -->
                     </tbody>
                 </table>
             </div>
         </main>
     </div>
 
+    <script src="assets/js/darkmode.js"></script>
     <script src="assets/js/transactions.js"></script>
 </body>
 </html>

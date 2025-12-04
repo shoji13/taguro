@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Save session
             $_SESSION['AccountID'] = $user['AccountID'];
             $_SESSION['AccountName'] = $user['AccountName'];
+            $_SESSION['AccountUsername'] = $user['AccountUsername'];
             $_SESSION['AccountRole'] = $user['AccountRole'];
 
             // Redirect by role
