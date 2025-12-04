@@ -15,7 +15,7 @@
 
     <nav>
       <ul class="nav-links">
-        <li><a href="index.html">Accounts</a></li>
+        <li><a href="home.html">Accounts</a></li>
 
         <!-- Dropdown -->
         <li class="dropdown active">
@@ -39,7 +39,6 @@
                 </div>
               </div>
             </a>
-            <!-- ✅ FIXED: Added onclick for otherBanks -->
             <a href="#sendmoney.html" onclick="showSection('otherBanks')">
               <div class="dropdown-item">
                 <span class="icon">🏧</span>
@@ -68,24 +67,25 @@
 
   <!-- ================= MAIN CONTENT ================= -->
   <main class="transfer-section">
+
     <!-- === OWN ACCOUNT SECTION === -->
-    <section id="ownAccountSection" class="transfer-card">
+    <section id="ownAccountSection" class="transfer-card hidden">
       <h2 class="transfer-header">Send to My Account</h2>
 
       <form id="ownAccountForm">
         <div class="form-group">
           <label>From Account:</label>
           <div class="input-box">
-            <input type="text" value="Savings 1234 **** ****" readonly />
-            <p class="balance">Balance: PHP 25,000.00</p>
+            <select id="ownFromAccount" required></select>
+            <p class="balance" id="ownBalance">Balance: PHP 0.00</p>
           </div>
         </div>
 
         <div class="form-group">
           <label>To Account:</label>
           <div class="input-box">
-            <input type="text" value="Checking 5678 **** ****" readonly />
-            <p class="balance">Balance: PHP 5,000.00</p>
+            <select id="ownToAccount" required></select>
+            <p class="balance" id="toBalance">Balance: PHP 0.00</p>
           </div>
         </div>
 
@@ -115,22 +115,22 @@
         <div class="form-group">
           <label>From Account:</label>
           <div class="input-box">
-            <input type="text" value="Savings 1234 **** ****" readonly />
-            <p class="balance">Balance: PHP 25,000.00</p>
+            <select id="ascendFromAccount" required></select>
+            <p class="balance" id="ascendBalance">Balance: PHP 0.00</p>
           </div>
         </div>
 
         <div class="form-group">
           <label>Recipient Account Number:</label>
           <div class="input-box">
-            <input type="text" placeholder="Enter ASCEND Account Number" />
+            <input type="text" placeholder="Enter ASCEND Account Number" required />
           </div>
         </div>
 
         <div class="form-group">
           <label>Recipient Name:</label>
           <div class="input-box">
-            <input type="text" placeholder="Enter Recipient Name" />
+            <input type="text" placeholder="Enter Recipient Name" required />
           </div>
         </div>
 
@@ -160,44 +160,44 @@
         <div class="form-group">
           <label>From Account:</label>
           <div class="input-box">
-            <input type="text" value="Savings 1234 **** ****" readonly />
-            <p class="balance">Balance: PHP 25,000.00</p>
+            <select id="otherFromAccount" required></select>
+            <p class="balance" id="otherBalance">Balance: PHP 0.00</p>
           </div>
         </div>
 
         <div class="form-group">
-      <label>Recipient Bank:</label>
-      <div class="input-box">
-        <select id="recipientBank" required>
-          <option value="" disabled selected>Select Bank or Wallet</option>
-          <option value="BPI">BPI </option>
-          <option value="BDO">BDO </option>
-          <option value="Metrobank">Metrobank</option>
-          <option value="Landbank">Land Bank of the Philippines</option>
-          <option value="UnionBank">UnionBank</option>
-          <option value="PNB">Philippine National Bank</option>
-          <option value="SecurityBank">Security Bank</option>
-          <option value="Chinabank">China Bank</option>
-          <option value="EastWest">EastWest Bank</option>
-          <option value="RCBC">RCBC</option>
-          <option value="GCash">GCash</option>
-          <option value="Maya">Maya (formerly PayMaya)</option>
-          <option value="GrabPay">GrabPay</option>
-        </select>
-      </div>
-    </div>
+          <label>Recipient Bank:</label>
+          <div class="input-box">
+            <select id="recipientBank" required>
+              <option value="" disabled selected>Select Bank or Wallet</option>
+              <option value="BPI">BPI</option>
+              <option value="BDO">BDO</option>
+              <option value="Metrobank">Metrobank</option>
+              <option value="Landbank">Land Bank of the Philippines</option>
+              <option value="UnionBank">UnionBank</option>
+              <option value="PNB">Philippine National Bank</option>
+              <option value="SecurityBank">Security Bank</option>
+              <option value="Chinabank">China Bank</option>
+              <option value="EastWest">EastWest Bank</option>
+              <option value="RCBC">RCBC</option>
+              <option value="GCash">GCash</option>
+              <option value="Maya">Maya</option>
+              <option value="GrabPay">GrabPay</option>
+            </select>
+          </div>
+        </div>
 
         <div class="form-group">
           <label>Recipient Account:</label>
           <div class="input-box">
-            <input type="text" placeholder="Enter Account or Wallet Number" />
+            <input type="text" placeholder="Enter Account or Wallet Number" required />
           </div>
         </div>
 
         <div class="form-group">
           <label>Recipient Name:</label>
           <div class="input-box">
-            <input type="text" placeholder="Enter Recipient Name" />
+            <input type="text" placeholder="Enter Recipient Name" required />
           </div>
         </div>
 
@@ -219,6 +219,122 @@
       </form>
     </section>
   </main>
+
+  <!-- PIN Verification Modal -->
+  <div id="pinModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000;">
+    <div style="
+        background:white; 
+        padding:30px; 
+        border-radius:15px; 
+        width:350px; 
+        text-align:center;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        font-family: 'Poppins', sans-serif;
+        position: relative;
+    ">
+      <h3 style="margin-bottom:15px;">Enter Card PIN</h3>
+      <input type="password" id="cardPinInput" placeholder="Card PIN" style="width:100%; padding:10px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc; font-size:16px;">
+      <button id="verifyPinBtn" style="
+          padding:10px 20px; 
+          background:#4CAF50; 
+          color:white; 
+          border:none; 
+          border-radius:8px;
+          font-size:16px;
+          cursor:pointer;
+      ">Verify</button>
+      <p id="pinError" style="color:red; margin-top:10px; min-height:20px;"></p>
+      <button id="closePinModal" style="
+          position:absolute; 
+          top:10px; 
+          right:15px; 
+          background:none; 
+          border:none; 
+          font-size:20px; 
+          cursor:pointer;
+      ">&times;</button>
+    </div>
+  </div>
+
+  <!-- Transaction Receipt Modal -->
+  <div id="receiptModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+      background: rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000; font-family: 'Poppins', sans-serif;">
+    <div style="
+        background:white;
+        width:360px;
+        padding:25px 30px;
+        border-radius:15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        position: relative;
+        text-align:left;
+    ">
+      <!-- Close Button -->
+      <button id="closeReceipt" style="
+          position:absolute;
+          top:15px;
+          right:15px;
+          background:none;
+          border:none;
+          font-size:22px;
+          cursor:pointer;
+          color:#333;
+      ">&times;</button>
+
+      <!-- Logo -->
+      <div style="text-align:center; margin-bottom:15px;">
+        <img src="assets/images/logoAB.png" alt="Ascend Bank Logo" style="height:50px; object-fit:contain;">
+      </div>
+
+      <!-- Header -->
+      <h2 style="text-align:center; font-size:20px; font-weight:700; color:#333; margin-bottom:10px;">Transaction Receipt</h2>
+      <p id="receiptID" style="font-size:12px; color:#666; text-align:center; margin-bottom:15px;"></p>
+
+      <!-- Receipt Body -->
+      <div style="
+          border-top:1px dashed #ccc;
+          border-bottom:1px dashed #ccc;
+          padding:15px 0;
+          line-height:1.6;
+      ">
+        <p style="margin-bottom:8px;"><strong>Sender:</strong> <span id="receiptSender"></span></p>
+        <p style="margin-bottom:8px;"><strong>Recipient:</strong> <span id="receiptRecipient"></span></p>
+        <p style="margin-bottom:8px;"><strong>Bank:</strong> <span id="receiptBank"></span></p>
+        <p style="margin-bottom:8px;"><strong>Amount:</strong> <span id="receiptAmount"></span></p>
+        <p style="margin-bottom:8px;"><strong>Remarks:</strong> <span id="receiptRemarks"></span></p>
+        <p style="margin-bottom:0;"><strong>Date:</strong> <span id="receiptDate"></span></p>
+      </div>
+
+      <!-- Footer -->
+      <p style="
+          text-align:center; 
+          font-size:12px; 
+          color:#555; 
+          margin-top:15px;
+          font-weight:500;
+      ">
+        Thank you for using Ascend Bank
+      </p>
+
+      <!-- Print Button -->
+      <div style="text-align:center; margin-top:15px;">
+        <button onclick="window.print()" style="
+            padding:10px 25px;
+            background:#4da6ff;
+            color:white;
+            border:none;
+            border-radius:8px;
+            font-weight:600;
+            cursor:pointer;
+            transition:all 0.2s ease;
+        ">Print Receipt</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
 
   <script src="assets/js/sendmoney.js"></script>
 </body>
