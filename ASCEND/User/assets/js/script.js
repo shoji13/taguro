@@ -49,3 +49,36 @@ accountsNav.addEventListener('click', (e) => {
   transactionView.style.display = 'none';
   myAccountView.style.display = 'block';
 });
+
+// Fetch and display recent transactions
+function loadTransactions() {
+  fetch('../../Admin/phpbackend/get_transaction_reports.php')
+    .then(response => response.json())
+    .then(data => {
+      const transactionList = document.querySelector('.transaction-list');
+      transactionList.innerHTML = '';
+      data.forEach(tx => {
+        const amountColor = tx.TransactionActivity.toLowerCase() === 'debit' ? 'red' : 'green';
+        const sign = tx.TransactionActivity.toLowerCase() === 'debit' ? '-' : '+';
+        const item = document.createElement('div');
+        item.className = 'transaction-item';
+        item.innerHTML = `
+          <div class="trans-left">
+            <span class="calendar">📅</span>
+            <div>
+              <p class="date">${tx.TransactionDate.split(' ')[0]}</p>
+              <p class="desc">${tx.TransactionRemarks}<br>Ref: TX${tx.TransactionID}</p>
+            </div>
+          </div>
+          <div class="trans-right" style="color:${amountColor}">${sign}₱${parseFloat(tx.TransactionAmount).toLocaleString(undefined, {minimumFractionDigits:2})}</div>
+        `;
+        transactionList.appendChild(item);
+      });
+    })
+    .catch(err => {
+      console.error('Failed to load transactions:', err);
+    });
+}
+
+// Load transactions when transaction history view is shown
+accountCard.addEventListener('click', loadTransactions);
