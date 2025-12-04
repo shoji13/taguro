@@ -58,6 +58,13 @@
                             <select id="yearFilter" class="year-filter-select">
                                 <!-- Years will be populated by JavaScript -->
                             </select>
+                            <label for="transactionTypeFilter" style="margin-left: 15px;">Type:</label>
+                            <select id="transactionTypeFilter" class="year-filter-select">
+                                <option value="">All Types</option>
+                                <option value="Deposit">Deposit</option>
+                                <option value="Transfer">Transfer</option>
+                                <option value="Withdraw">Withdraw</option>
+                            </select>
                             <button id="applyYearFilter" class="filter-btn">Apply Filter</button>
                             <button id="resetYearFilter" class="filter-btn reset-btn">Reset</button>
                         </div>
@@ -102,8 +109,19 @@
                 <div class="reports-table-section">
                     <div class="reports-table-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--accent);">
                         <h2 style="margin: 0;">Transaction Reports</h2>
-                        <div class="export-buttons" style="display: flex; gap: 10px;">
-                            <button id="exportPdfBtn" class="btn" style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 6px; cursor: pointer;">PDF</button>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <label for="modalTransactionTypeFilter" style="font-weight: 500;">Filter by Type:</label>
+                                <select id="modalTransactionTypeFilter" style="padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color); background-color: #fff; cursor: pointer;">
+                                    <option value="">All Types</option>
+                                    <option value="Deposit">Deposit</option>
+                                    <option value="Transfer">Transfer</option>
+                                    <option value="Withdraw">Withdraw</option>
+                                </select>
+                            </div>
+                            <div class="export-buttons" style="display: flex; gap: 10px;">
+                                <button id="exportPdfBtn" class="btn" style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 6px; cursor: pointer;">PDF</button>
+                            </div>
                         </div>
                     </div>
                     <table class="reports-table">

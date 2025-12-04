@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Year filter elements
     const yearFilter = document.getElementById('yearFilter');
+    const transactionTypeFilter = document.getElementById('transactionTypeFilter');
+    const modalTransactionTypeFilter = document.getElementById('modalTransactionTypeFilter');
     const applyYearFilterBtn = document.getElementById('applyYearFilter');
     const resetYearFilterBtn = document.getElementById('resetYearFilter');
     
@@ -52,16 +54,21 @@ document.addEventListener('DOMContentLoaded', function() {
     populateYearFilter();
     
     // Load monthly transaction data for line graph
-    async function loadMonthlyTransactions(year = null) {
+    async function loadMonthlyTransactions(year = null, transactionType = null) {
         try {
             let url = 'phpbackend/get_monthly_transactions.php';
             const params = new URLSearchParams();
             if (year) {
                 params.append('year', year);
             }
+            if (transactionType && transactionType !== '') {
+                params.append('transactionType', transactionType);
+            }
             if (params.toString()) {
                 url += '?' + params.toString();
             }
+            
+            console.log('Loading monthly transactions with filters:', { year, transactionType, url });
             
             const response = await fetch(url);
             const data = await response.json();
@@ -85,8 +92,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (applyYearFilterBtn) {
         applyYearFilterBtn.addEventListener('click', function() {
             const selectedYear = yearFilter ? yearFilter.value : null;
-            loadMonthlyTransactions(selectedYear);
-            loadTransactionReports(selectedYear);
+            const selectedType = transactionTypeFilter ? transactionTypeFilter.value : null;
+            loadMonthlyTransactions(selectedYear, selectedType);
+            loadTransactionReports(selectedYear, selectedType);
         });
     }
     
@@ -96,8 +104,33 @@ document.addEventListener('DOMContentLoaded', function() {
             if (yearFilter) {
                 yearFilter.value = new Date().getFullYear().toString();
             }
-            loadMonthlyTransactions(null);
-            loadTransactionReports(null);
+            if (transactionTypeFilter) {
+                transactionTypeFilter.value = '';
+            }
+            if (modalTransactionTypeFilter) {
+                modalTransactionTypeFilter.value = '';
+            }
+            const currentYear = new Date().getFullYear();
+            loadMonthlyTransactions(currentYear, null);
+            loadTransactionReports(null, null);
+        });
+    }
+    
+    // Handle main transaction type filter change (optional - can also use Apply Filter button)
+    if (transactionTypeFilter) {
+        transactionTypeFilter.addEventListener('change', function() {
+            // Optionally auto-apply when filter changes, or just update when Apply is clicked
+            // For now, we'll let the Apply button handle it, but this can be enabled if needed
+        });
+    }
+    
+    // Handle modal transaction type filter change
+    if (modalTransactionTypeFilter) {
+        modalTransactionTypeFilter.addEventListener('change', function() {
+            const selectedYear = yearFilter ? yearFilter.value : null;
+            const selectedType = modalTransactionTypeFilter.value || null;
+            console.log('Modal filter changed:', selectedType);
+            loadTransactionReports(selectedYear, selectedType);
         });
     }
     
@@ -365,10 +398,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Load monthly transactions on page load (default to current year)
     const currentYear = new Date().getFullYear();
-    loadMonthlyTransactions(currentYear);
+    loadMonthlyTransactions(currentYear, null);
     
-    // Load transaction reports with optional year filtering
-    function loadTransactionReports(year = null) {
+    // Load transaction reports with optional year and type filtering
+    function loadTransactionReports(year = null, transactionType = null) {
         let url = 'phpbackend/get_transaction_reports.php';
         const params = new URLSearchParams();
         if (year) {
@@ -376,9 +409,14 @@ document.addEventListener('DOMContentLoaded', function() {
             params.append('start', `${year}-01-01`);
             params.append('end', `${year}-12-31`);
         }
+        if (transactionType && transactionType !== '') {
+            params.append('transactionType', transactionType);
+        }
         if (params.toString()) {
             url += '?' + params.toString();
         }
+        
+        console.log('Loading transaction reports with filters:', { year, transactionType, url });
         
         fetch(url)
         .then(response => {
@@ -386,11 +424,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
+            console.log('Transaction reports data received:', data);
             const tbody = document.getElementById('reportsTableBody');
             if (!tbody) return;
             
             tbody.innerHTML = '';
             if (Array.isArray(data) && data.length > 0) {
+                console.log(`Found ${data.length} transactions`);
                 data.forEach(tx => {
                     const tr = document.createElement('tr');
                     // Determine color based on activity type
@@ -444,7 +484,12 @@ document.addEventListener('DOMContentLoaded', function() {
         viewReportsBtn.addEventListener('click', () => {
             // Load reports data when opening modal
             const selectedYear = yearFilter ? yearFilter.value : currentYear;
-            loadTransactionReports(selectedYear || currentYear);
+            const selectedType = transactionTypeFilter ? transactionTypeFilter.value : null;
+            // Sync modal filter with main filter
+            if (modalTransactionTypeFilter && selectedType) {
+                modalTransactionTypeFilter.value = selectedType;
+            }
+            loadTransactionReports(selectedYear || currentYear, selectedType);
             reportsModalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
         });

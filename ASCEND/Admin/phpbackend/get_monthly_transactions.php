@@ -3,8 +3,9 @@ header('Content-Type: application/json');
 require '../../db_connect.php';
 
 try {
-    // Get year from query parameters
+    // Get year and transaction type from query parameters
     $year = isset($_GET['year']) ? intval($_GET['year']) : null;
+    $transactionType = isset($_GET['transactionType']) && trim($_GET['transactionType']) !== '' ? trim($_GET['transactionType']) : null;
     
     // Build WHERE clause
     $whereClause = [];
@@ -19,6 +20,32 @@ try {
         $currentYear = date('Y');
         $whereClause[] = "YEAR(TransactionDate) = :year";
         $params[':year'] = $currentYear;
+    }
+    
+    // Handle transaction type filter (Deposit, Transfer, Withdraw)
+    if ($transactionType) {
+        $transactionTypeUpper = strtoupper(trim($transactionType));
+        
+        // Use LIKE for partial matching to handle variations in activity names
+        if ($transactionTypeUpper === 'DEPOSIT') {
+            // Match deposit-related activities
+            $whereClause[] = "(UPPER(TRIM(TransactionActivity)) LIKE '%DEPOSIT%' 
+                             OR UPPER(TRIM(TransactionActivity)) LIKE '%RECEIVE%' 
+                             OR UPPER(TRIM(TransactionActivity)) LIKE '%CREDIT%')";
+        } elseif ($transactionTypeUpper === 'WITHDRAW') {
+            // Match withdraw-related activities  
+            $whereClause[] = "(UPPER(TRIM(TransactionActivity)) LIKE '%WITHDRAW%' 
+                             OR UPPER(TRIM(TransactionActivity)) LIKE '%DEBIT%' 
+                             OR UPPER(TRIM(TransactionActivity)) LIKE '%SEND%' 
+                             OR UPPER(TRIM(TransactionActivity)) LIKE '%PAY%')";
+        } elseif ($transactionTypeUpper === 'TRANSFER') {
+            // Match transfer activities (exact or partial)
+            $whereClause[] = "UPPER(TRIM(TransactionActivity)) LIKE '%TRANSFER%'";
+        } else {
+            // Fallback: try exact match
+            $whereClause[] = "UPPER(TRIM(TransactionActivity)) = :transactionType";
+            $params[':transactionType'] = $transactionTypeUpper;
+        }
     }
     
     $whereSQL = !empty($whereClause) ? 'WHERE ' . implode(' AND ', $whereClause) : '';
