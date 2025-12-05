@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deposit | AD Bank</title>
+</head>
+<body style="margin:0; padding:0; font-family:'Poppins', sans-serif; background:#f9f9f9;">
+
+  <!-- NAVBAR -->
+  <header style="display:flex; align-items:center; justify-content:space-between; background-color:#ffda73; padding:10px 30px; border-bottom:1px solid #ddd;">
+    <div style="display:flex; align-items:center;">
+      <img src="assets/images/logoAB.png" alt="Ascend Bank Logo" style="width:45px; height:auto;">
+    </div>
+
+    <nav>
+      <ul style="list-style:none; display:flex; align-items:center; gap:25px; margin:0; padding:0;">
+        <li><a href="home.html" style="text-decoration:none; color:#000; font-weight:500; padding:6px 8px;">Accounts</a></li>
+
+        <li style="position:relative;">
+          <a href="sendmoney.html" style="text-decoration:none; color:#000; font-weight:500; padding:6px 8px; cursor:pointer;">Send Money ▾</a>
+          <div style="display:none; position:absolute; top:40px; left:0; min-width:300px; background:#fff; border:1px solid #ccc; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.1); overflow:hidden; z-index:10;">
+            <a href="sendmoney.html" style="text-decoration:none; color:inherit; display:block;">
+              <div style="display:flex; align-items:flex-start; gap:10px; padding:12px 16px;">
+                <span style="font-size:1.5rem; margin-top:5px;">💳</span>
+                <div>
+                  <p style="font-weight:600; color:#000; margin:0;">Own Account</p>
+                  <p style="font-size:0.85rem; color:#555; margin:0;">Send money to your own accounts</p>
+                </div>
+              </div>
+            </a>
+            <a href="#" style="text-decoration:none; color:inherit; display:block;">
+              <div style="display:flex; align-items:flex-start; gap:10px; padding:12px 16px;">
+                <span style="font-size:1.5rem; margin-top:5px;">🏦</span>
+                <div>
+                  <p style="font-weight:600; color:#000; margin:0;">Any ASCEND Account</p>
+                  <p style="font-size:0.85rem; color:#555; margin:0;">Send money to other ASCEND accounts</p>
+                </div>
+              </div>
+            </a>
+            <a href="#" style="text-decoration:none; color:inherit; display:block;">
+              <div style="display:flex; align-items:flex-start; gap:10px; padding:12px 16px;">
+                <span style="font-size:1.5rem; margin-top:5px;">🏧</span>
+                <div>
+                  <p style="font-weight:600; color:#000; margin:0;">Other Banks and Wallet</p>
+                  <p style="font-size:0.85rem; color:#555; margin:0;">Send money to other banks or wallet</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </li>
+
+        <li><a href="pay.html" style="text-decoration:none; color:#000; font-weight:500; padding:6px 8px;">Pay</a></li>
+        <li style="font-weight:700; border-bottom:3px solid #000;"><a href="deposit.html" style="text-decoration:none; color:#000; padding:6px 8px;">Deposit</a></li>
+        <li><a href="withdraw.html" style="text-decoration:none; color:#000; padding:6px 8px;">Withdraw</a></li>
+      </ul>
+    </nav>
+
+    <div style="display:flex; align-items:center; gap:15px;">
+      <i style="cursor:pointer; font-size:1.2rem;">✉️</i>
+      <i style="cursor:pointer; font-size:1.2rem;">🔔</i>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <img src="https://via.placeholder.com/30" style="border-radius:50%; width:30px; height:30px;" />
+        <span>Benson, Susie Sam</span>
+      </div>
+      <button style="background:none; border:none; font-weight:600; cursor:pointer; color:#333;">Log out</button>
+    </div>
+  </header>
+
+<!-- MAIN DEPOSIT SECTION -->
+<main style="padding:40px; display:flex; justify-content:center;">
+  <div style="background:#fff; border:1px solid #ddd; border-radius:10px; padding:30px; width:650px; box-shadow:0 3px 10px rgba(0,0,0,0.05);">
+    <div style="background-color:#ffde59; padding:10px 20px; border-radius:6px; font-weight:600; margin-bottom:25px;">Deposit</div>
+
+    <form id="depositForm" style="display:flex; flex-direction:column; gap:15px;">
+      <!-- Cards Dropdown -->
+      <div style="display:flex; flex-direction:column;">
+        <label for="paymentSource" style="font-weight:500; margin-bottom:5px;">Select Card:</label>
+        <select id="paymentSource" style="padding:10px; border:1px solid #ccc; border-radius:6px; font-size:1rem; width:100%;"></select>
+        <span id="paymentBalance" style="font-size:0.9rem; color:#777; margin-top:5px;"></span>
+      </div>
+
+      <!-- Amount -->
+      <div style="display:flex; flex-direction:column;">
+        <label for="depositAmount" style="font-weight:500; margin-bottom:5px;">Amount:</label>
+        <input type="number" id="depositAmount" placeholder="0.00" style="padding:10px; border:1px solid #ccc; border-radius:6px; font-size:1rem; width:100%;">
+      </div>
+
+      <!-- Remarks -->
+      <div style="display:flex; flex-direction:column;">
+        <label for="remarks" style="font-weight:500; margin-bottom:5px;">Remarks:</label>
+        <input type="text" id="remarks" placeholder="Optional" style="padding:10px; border:1px solid #ccc; border-radius:6px; font-size:1rem; width:100%;">
+      </div>
+
+      <button type="submit" style="background-color:#5cb6f9; color:white; border:none; padding:10px 25px; border-radius:6px; cursor:pointer; font-weight:600; align-self:flex-end;">Deposit</button>
+      <span id="msg" style="font-weight:500;"></span>
+    </form>
+  </div>
+</main>
+
+<!-- PIN Modal -->
+<div id="pinModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+  <div style="background:#fff; padding:20px; border-radius:8px; width:300px; display:flex; flex-direction:column; gap:10px;">
+    <label for="cardPinInput">Enter PIN:</label>
+    <input type="password" id="cardPinInput" style="padding:8px; border:1px solid #ccc; border-radius:5px;">
+    <span id="pinError" style="color:red; font-size:0.85rem;"></span>
+    <button id="verifyPinBtn" style="padding:8px; background:#5cb6f9; color:white; border:none; border-radius:5px; cursor:pointer;">Verify</button>
+    <button id="closePinModal" style="padding:8px; background:#ccc; color:#333; border:none; border-radius:5px; cursor:pointer;">Cancel</button>
+  </div>
+</div>
+
+
+
+<!-- Transaction Receipt Modal -->
+  <div id="receiptModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+      background: rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000; font-family: 'Poppins', sans-serif;">
+    <div style="
+        background:white;
+        width:360px;
+        padding:25px 30px;
+        border-radius:15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        position: relative;
+        text-align:left;
+    ">
+      <!-- Close Button -->
+      <button id="closeReceipt" style="
+          position:absolute;
+          top:15px;
+          right:15px;
+          background:none;
+          border:none;
+          font-size:22px;
+          cursor:pointer;
+          color:#333;
+      ">&times;</button>
+
+      <!-- Logo -->
+      <div style="text-align:center; margin-bottom:15px;">
+        <img src="assets/images/logoAB.png" alt="Ascend Bank Logo" style="height:50px; object-fit:contain;">
+      </div>
+
+      <!-- Header -->
+      <h2 style="text-align:center; font-size:20px; font-weight:700; color:#333; margin-bottom:10px;">Transaction Receipt</h2>
+      <p id="receiptID" style="font-size:12px; color:#666; text-align:center; margin-bottom:15px;"></p>
+
+      <!-- Receipt Body -->
+      <div style="
+          border-top:1px dashed #ccc;
+          border-bottom:1px dashed #ccc;
+          padding:15px 0;
+          line-height:1.6;
+      ">
+        
+        <p style="margin-bottom:8px;"><strong>Recipient:</strong> <span id="receiptRecipient"></span></p>
+        <p style="margin-bottom:8px;"><strong>Bank:</strong> <span id="receiptBank"></span></p>
+        <p style="margin-bottom:8px;"><strong>Amount:</strong> <span id="receiptAmount"></span></p>
+        <p style="margin-bottom:8px;"><strong>Remarks:</strong> <span id="receiptRemarks"></span></p>
+        <p style="margin-bottom:0;"><strong>Date:</strong> <span id="receiptDate"></span></p>
+      </div>
+
+<script>
+// ================= Load Cards Dropdown =================
+async function loadUserCards() {
+    const paymentSource = document.getElementById('paymentSource');
+    const balanceDisplay = document.getElementById('paymentBalance');
+    if (!paymentSource) return;
+
+    paymentSource.innerHTML = '';
+
+    try {
+        const res = await fetch('get_cards.php');
+        const cards = await res.json();
+
+        if (!cards || cards.length === 0) {
+            paymentSource.innerHTML = `<option value="">No cards available</option>`;
+            balanceDisplay.textContent = '';
+            return;
+        }
+
+        cards.forEach(card => {
+            const option = document.createElement('option');
+            option.value = card.CardID;
+            option.dataset.balance = card.CardBalance;
+            option.dataset.senderName = card.AccountName || 'Unknown';
+            option.textContent = `${card.CardNumber} - Balance: PHP ${parseFloat(card.CardBalance).toLocaleString('en-PH',{minimumFractionDigits:2})}`;
+            paymentSource.appendChild(option);
+        });
+
+        updateCardBalance();
+        paymentSource.addEventListener('change', updateCardBalance);
+
+    } catch (err) {
+        paymentSource.innerHTML = `<option value="">Error loading cards</option>`;
+        balanceDisplay.textContent = '';
+        console.error(err);
+    }
+}
+
+function updateCardBalance() {
+    const paymentSource = document.getElementById('paymentSource');
+    const balanceDisplay = document.getElementById('paymentBalance');
+    const selectedOption = paymentSource?.selectedOptions[0];
+    if (selectedOption && selectedOption.dataset.balance !== undefined) {
+        balanceDisplay.textContent = `Balance: PHP ${parseFloat(selectedOption.dataset.balance).toLocaleString('en-PH',{minimumFractionDigits:2})}`;
+    } else {
+        balanceDisplay.textContent = '';
+    }
+}
+
+// ================= PIN Verification =================
+function verifyPin(cardID) {
+    return new Promise((resolve, reject) => {
+        const modal = document.getElementById('pinModal');
+        const pinInput = document.getElementById('cardPinInput');
+        const verifyBtn = document.getElementById('verifyPinBtn');
+        const errorText = document.getElementById('pinError');
+        const closeBtn = document.getElementById('closePinModal');
+        let attempts = 0, maxAttempts=3;
+
+        pinInput.value=''; errorText.textContent='';
+        modal.style.display='flex'; pinInput.focus();
+
+        function cleanup() { verifyBtn.removeEventListener('click', onVerify); closeBtn.removeEventListener('click', onClose); modal.style.display='none'; }
+
+        function onClose() { cleanup(); reject(new Error('PIN verification canceled.')); }
+
+        async function onVerify() {
+            const pin = pinInput.value.trim();
+            if (!pin) { errorText.textContent='Please enter your PIN.'; return; }
+            try {
+                const res = await fetch('verify_card_pin.php',{
+                    method:'POST',
+                    headers:{'Content-Type':'application/json'},
+                    body:JSON.stringify({CardID:cardID,CardPIN:pin})
+                });
+                const data = await res.json();
+                if(data.success){ cleanup(); resolve(true); }
+                else {
+                    attempts++;
+                    if(attempts>=maxAttempts){ errorText.textContent='Maximum attempts reached.'; setTimeout(()=>cleanup(),1500); reject(new Error('Max attempts reached.')); }
+                    else { errorText.textContent=`${data.message} (${attempts}/${maxAttempts})`; pinInput.value=''; pinInput.focus(); }
+                }
+            } catch(e){ errorText.textContent='Error verifying PIN.'; console.error(e); }
+        }
+        verifyBtn.addEventListener('click', onVerify);
+        closeBtn.addEventListener('click', onClose);
+        pinInput.addEventListener('keyup', e=>{ if(e.key==='Enter') onVerify(); });
+    });
+}
+
+// ================= Show Receipt =================
+function showReceipt(transaction) {
+    const modal = document.getElementById('receiptModal');
+    if(!modal) return;
+    document.getElementById('receiptID').textContent = transaction.id ? 'Transaction ID: '+transaction.id:'';
+    
+    document.getElementById('receiptRecipient').textContent = 'Recipient: '+transaction.recipient;
+    document.getElementById('receiptBank').textContent = 'Bank: '+(transaction.bank||'N/A');
+    document.getElementById('receiptAmount').textContent = `Amount: PHP ${parseFloat(transaction.amount).toLocaleString('en-PH',{minimumFractionDigits:2})}`;
+    document.getElementById('receiptRemarks').textContent = 'Remarks: '+(transaction.remarks||'-');
+    document.getElementById('receiptDate').textContent = 'Date: '+(transaction.date||new Date().toLocaleString());
+    modal.style.display='flex';
+    document.getElementById('closeReceipt').onclick=()=>modal.style.display='none';
+}
+
+// ================= HANDLE DEPOSIT =================
+document.getElementById('depositForm').addEventListener('submit', async e=>{
+    e.preventDefault();
+    const cardSelect = document.getElementById('paymentSource');
+    const selectedCard = cardSelect.selectedOptions[0];
+    const amount = parseFloat(document.getElementById('depositAmount').value);
+    const remarks = document.getElementById('remarks').value.trim();
+    const msg = document.getElementById('msg');
+
+    if(!selectedCard || !selectedCard.value || !amount || amount<=0){ msg.textContent='Please fill all fields correctly.'; msg.style.color='red'; return; }
+    if(amount>parseFloat(selectedCard.dataset.balance)){ msg.textContent='Insufficient balance.'; msg.style.color='red'; return; }
+
+    try{
+        await verifyPin(selectedCard.value);
+
+        const res = await fetch('deposit.php',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({cardID:selectedCard.value, amount, remarks})
+        });
+        const result = await res.json();
+
+        if(result.status==='success'){
+            msg.textContent=result.message; msg.style.color='green';
+            loadUserCards();
+            showReceipt({
+                id:result.transactionID || '',
+                sender:selectedCard.dataset.senderName,
+                recipient:selectedCard.dataset.senderName,
+                bank:'AD Bank',
+                amount:amount,
+                remarks:remarks,
+                date:new Date().toLocaleString()
+            });
+            document.getElementById('depositForm').reset();
+        } else { msg.textContent=result.message || 'Transaction failed'; msg.style.color='red'; }
+    } catch(err){ msg.textContent=err.message || 'Error during transaction'; msg.style.color='red'; }
+});
+
+loadUserCards();
+</script>
+</body>
+</html>
